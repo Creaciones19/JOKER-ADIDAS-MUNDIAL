@@ -52,6 +52,7 @@ object-fit:contain;
 transition:.3s;
 }
 
+
 .galeria-item img:hover{
 transform:scale(1.05);
 }
@@ -216,6 +217,7 @@ border-radius:15px;
 box-shadow:0 0 30px rgba(255,255,255,.3);
 }
 
+
 /* RESPONSIVE */
 
 @media(max-width:768px){
@@ -286,14 +288,20 @@ height:240px;
 <h1>JAKET ADIDAS DEL MUNDIAL</h1>
 
 
-<h2 style="text-align:center; margin-bottom:10px;">
-🎥 Da clic y reproduce el video
-</h2>
+<div class="galeria">
 
-<div class="galeria-item">
-    <video onclick="abrirVideo(this)" muted>
-        <source src="video1.mp4" type="video/mp4">
-    </video>
+    <div class="galeria-item">
+        <video onclick="abrirVideo(this)" muted>
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="galeria-item">
+        <video onclick="abrirVideo(this)" muted>
+            <source src="video2.mp4" type="video/mp4">
+        </video>
+    </div>
+
 </div>
 
 <div id="modalVideo" class="modal">
