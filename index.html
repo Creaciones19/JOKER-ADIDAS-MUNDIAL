@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JAKET ADIDAS DEL MUNDIAL</title>
+<title>ESSENTIALS</title>
 <style>
 
 *{
@@ -394,7 +394,69 @@ height:240px;
   50% { transform: translateY(-6px); }
   100% { transform: translateY(0); }
 }
+/* =========================
+   MODAL GALERÍA
+========================= */
+#modalGaleria{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.95);
+  z-index:99999;
+  justify-content:center;
+  align-items:center;
+}
 
+#modalGaleria > div{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  max-width:95%;
+}
+
+#imgPrincipal{
+  max-width:95%;
+  max-height:80vh;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+#miniaturas{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+
+/* 🔥 CLAVE DEL PROBLEMA */
+#miniaturas img{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  cursor:pointer;
+  border-radius:8px;
+  opacity:0.7;
+}
+
+#miniaturas img:hover{
+  opacity:1;
+  transform:scale(1.05);
+}
+/* ANIMACIÓN */
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
 .menu-categorias{
     background:#111;
     padding:15px;
@@ -429,38 +491,71 @@ body{
 html{
     scroll-behavior:smooth;
 }
+.oferta{
+    color:red;
+    font-weight:bold;
+    text-align:center;
+    font-size:18px;
+    margin:8px 0;
+}
 </style>
-
 </head>
+
+<div id="modalGaleria" class="modal" onclick="cerrarGaleria()">
+
+  <div onclick="event.stopPropagation()">
+
+    <span class="cerrar" onclick="cerrarGaleria()">&times;</span>
+
+    <img id="imgPrincipal">
+
+    <div id="miniaturas"></div>
+
+  </div>
+
+</div>
+
 <body>
 
 <nav class="menu-categorias">
-    <a href="index.html">Jacket Adidas</a>
-    <a href="indexcham2.html">Essentials Fear Of God</a>
+    <a href="index.html">Essentials Fear Of God<</a>
+    <a href="indexcham2.html">Jacket Adidas</a>
+     
 </nav>
 
-<!-- aqui esta agregado el indexcubo.html -->
+<!-- AQUÍ SIGUE TODO TU CONTENIDO -->
+
+<div class="productos">
+
+    <!-- Tus productos -->
+
+</div>
+
+    <!-- aqui esta agregado el indexcubo.html-->
 <iframe
-    src="indexcubo.html"
+    src="indexcuboch.html"
     width="100%"
     height="600"
     frameborder="0"
     style="border:none; display:block; margin-bottom:30px;">
 </iframe>
 
+
+
 <div class="galeria">
 
     <div class="galeria-item">
         <video onclick="abrirVideo(this)" muted>
-            <source src="video1.mp4" type="video/mp4">
+            <source src="videoindex2.mp4" type="video/mp4">
+        </video>
+    </div>
+       <div class="galeria-item">
+        <video onclick="abrirVideo(this)" muted>
+            <source src="videoindez22.mp4" type="video/mp4">
         </video>
     </div>
 
-    <div class="galeria-item">
-        <video onclick="abrirVideo(this)" muted>
-            <source src="video2.mp4" type="video/mp4">
-        </video>
-    </div>
+  
 
 </div>
 
@@ -475,42 +570,41 @@ html{
 
 <div class="galeria">
 
-<div class="galeria-item">
-<img src="nuevos listados (4).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (1).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (5).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (10).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (6).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (11).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (7).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (4).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (8).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (5).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (9).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (6).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (10).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (7).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (11).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (8).png" alt="">
 </div>
 
-<div class="galeria-item">
-<img src="nuevos listados (12).jpg" alt="">
+<div class="galeria-item" onclick="abrirImagenSimple(this)">
+  <img src="index2 (9).png" alt="">
 </div>
-
 
 </div>
 
@@ -518,7 +612,7 @@ html{
 <!-- COMUNICADO -->
 
 <div class="comunicado-wrapper">
-  <img src="comunicado.png" alt="Comunicado" class="comunicado-img">
+  <img src="index2 (13).png" alt="Comunicado" class="comunicado-img">
 </div>
 
 <div id="urgenteCard" class="urgente-card">
@@ -526,327 +620,141 @@ html{
 
   <span class="urgente-badge">🚨 URGENTE</span>
 
-  <img src="comunicado.png" alt="Comunicado" onclick="abrirComunicado()">
+  <img src="index2 (13).png" alt="Comunicado" onclick="abrirComunicado()">
   <p onclick="abrirComunicado()">Toca para ver información importante</p>
 </div>
 <!-- PRODUCTOS -->
-
 <div class="productos">
 
-
-<!-- ESPRESSO -->
-
+<!-- CLARO -->
 <div class="card">
 
-<img src="nuevos listados (21).jpg" alt="Espresso">
+<img 
+  src="essential (1).png" 
+  alt="claro"
+  onclick="abrirGaleria(this)"
+  data-imgs="essential (1).png,essential (6).png"
+/>
 
-<h3>Chamarra Espresso</h3>
-
-<div class="precio">$1250</div>
+<h3>Essentials Claro</h3>
+<div class="oferta">OFERTA</div>
+<div class="precio">$880.00</div>
 
 <select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
+  <option>CH</option>
+  <option>M</option>
+  <option>G</option>
+  <option>XL</option>
 </select>
 
 <div class="cantidad-box">
 
-<label>Cantidad</label>
+  <label>Cantidad</label>
 
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
+  <div class="cantidad">
+    <span class="numero">1</span>
+    <button class="mas" onclick="sumar(this)">+</button>
+  </div>
 
 </div>
 
-<div class="total">$1250</div>
+<div class="total">$880.00</div>
 
 <button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Espresso',1250)">
+onclick="enviarWhatsApp(this,'Essentials Claro',980)">
 Confirmar Pedido
 </button>
 
 </div>
+
+
 <!-- GRIS -->
-
 <div class="card">
 
-<img src="nuevos listados (10).jpg" alt="Gris">
+<img 
+  src="indexg.png" 
+  alt="gris"
+  onclick="abrirGaleria(this)"
+  data-imgs="indexg.png,essential (5).png"
+/>
 
-<h3>Chamarra Gris</h3>
-
-<div class="precio">$1250</div>
+<h3>Essentials Gris</h3>
+<div class="oferta">OFERTA</div>
+<div class="precio">$880.00</div>
 
 <select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
+  <option>CH</option>
+  <option>M</option>
+  <option>G</option>
+  <option>XL</option>
 </select>
 
 <div class="cantidad-box">
 
-<label>Cantidad</label>
+  <label>Cantidad</label>
 
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
+  <div class="cantidad">
+    <span class="numero">1</span>
+    <button class="mas" onclick="sumar(this)">+</button>
+  </div>
 
 </div>
 
-<div class="total">$1250</div>
+<div class="total">$880.00</div>
 
 <button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Ochre',1250)">
-Confirmar Pedido
-</button>
-
-</div>
-<!-- OCHRE -->
-
-<div class="card">
-
-<img src="nuevos listados (14).jpg" alt="Ochre">
-
-<h3>Chamarra Ochre</h3>
-
-<div class="precio">$1250</div>
-
-<select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
-</select>
-
-<div class="cantidad-box">
-
-<label>Cantidad</label>
-
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
-
-</div>
-
-<div class="total">$1250</div>
-
-<button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Ochre',1250)">
-Confirmar Pedido
-</button>
-
-</div>
-<!-- VERDE -->
-
-<div class="card">
-
-<img src="nuevos listados (15).jpg" alt="Verde">
-
-<h3>Chamarra Verde</h3>
-
-<div class="precio">$1250</div>
-
-<select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
-</select>
-
-<div class="cantidad-box">
-
-<label>Cantidad</label>
-
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
-
-</div>
-
-<div class="total">$1250</div>
-
-<button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Verde',1250)">
+onclick="enviarWhatsApp(this,'Essentials Gris',980)">
 Confirmar Pedido
 </button>
 
 </div>
 
-<!-- PAGEANT BLUE -->
 
+<!-- NEGRO -->
 <div class="card">
 
-<img src="nuevos listados (16).jpg" alt="Pageant Blue">
+<img 
+  src="essential (3).png" 
+  alt="negro"
+  onclick="abrirGaleria(this)"
+  data-imgs="essential (3).png,essential (4).png"
+/>
 
-<h3>Chamarra Pageant Blue</h3>
-
-<div class="precio">$1250</div>
+<h3>Essentials Negro</h3>
+<div class="oferta">OFERTA</div>
+<div class="precio">$880.00</div>
 
 <select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
+  <option>CH</option>
+  <option>M</option>
+  <option>G</option>
+  <option>XL</option>
 </select>
 
 <div class="cantidad-box">
 
-<label>Cantidad</label>
+  <label>Cantidad</label>
 
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
+  <div class="cantidad">
+    <span class="numero">1</span>
+    <button class="mas" onclick="sumar(this)">+</button>
+  </div>
 
 </div>
 
-<div class="total">$1250</div>
+<div class="total">$880.00</div>
 
 <button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Pageant Blue',1250)">
+onclick="enviarWhatsApp(this,'Essentials Negro',980)">
 Confirmar Pedido
 </button>
 
 </div>
 
-<!-- MARSHMALLOW -->
-
-<div class="card">
-
-<img src="nuevos listados (20).jpg" alt="Marshmallow">
-
-<h3>Chamarra Marshmallow</h3>
-
-<div class="precio">$1250</div>
-
-<select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
-</select>
-
-<div class="cantidad-box">
-
-<label>Cantidad</label>
-
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
+</div>
 </div>
 
 </div>
-
-<div class="total">$1250</div>
-
-<button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Marshmallow',1250)">
-Confirmar Pedido
-</button>
-
-</div>
-<!-- ADRENALINE RUSH -->
-
-<div class="card">
-
-<img src="nuevos listados (13).jpg" alt="Adrenaline Rush">
-
-<h3>Chamarra Adrenaline Rush</h3>
-
-<div class="precio">$1250</div>
-
-<select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
-</select>
-
-<div class="cantidad-box">
-
-<label>Cantidad</label>
-
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
-
-</div>
-
-<div class="total">$1250</div>
-
-<button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Adrenaline Rush',1250)">
-Confirmar Pedido
-</button>
-
-</div>
-<!-- MELT -->
-
-<div class="card">
-
-<img src="nuevos listados (22).jpg" alt="Melt">
-
-<h3>Chamarra Melt</h3>
-
-<div class="precio">$1250</div>
-
-<select class="talla">
-<option>CH</option>
-<option>M</option>
-<option>G</option>
-<option>XL</option>
-</select>
-
-<div class="cantidad-box">
-
-<label>Cantidad</label>
-
-<div class="cantidad">
-
-<span class="numero">1</span>
-
-<button class="mas" onclick="sumar(this)">+</button>
-
-</div>
-
-</div>
-
-<div class="total">$1250</div>
-
-<button class="confirmar"
-onclick="enviarWhatsApp(this,'Chamarra Melt',1250)">
-Confirmar Pedido
-</button>
-
 </div>
 <div id="visorImagen" class="visor-imagen">
     <img id="imagenGrande" src="">
@@ -902,7 +810,7 @@ Confirmar Pedido
 <!-- FIN COLORES FUTUROS -->
 <!-- ===================================================== -->
 <script>
-    
+
 function abrirVideo(video){
     document.getElementById("modalVideo").style.display = "flex";
 
@@ -920,139 +828,227 @@ function cerrarVideo(){
     document.getElementById("modalVideo").style.display = "none";
 }
 
+/* =========================
+   VISOR IMAGEN GALERIA SUPERIOR
+========================= */
+
 function abrirImagen(img){
-
-document.getElementById("imagenGrande").src = img.src;
-
-document.getElementById("visorImagen").style.display = "flex";
-
+    document.getElementById("imagenGrande").src = img.src;
+    document.getElementById("visorImagen").style.display = "flex";
 }
 
 function cerrarImagen(){
-
-document.getElementById("visorImagen").style.display = "none";
-
+    document.getElementById("visorImagen").style.display = "none";
 }
+
+/* =========================
+   GALERIA PRODUCTOS
+========================= */
+
+let imgsProducto = [];
+let indexProducto = 0;
+
+function abrirGaleria(img){
+
+    const data = img.getAttribute("data-imgs");
+    if(!data) return;
+
+    imgsProducto = data.split(",").map(i => i.trim());
+    indexProducto = 0;
+
+    document.getElementById("imgPrincipal").src = imgsProducto[0];
+    document.getElementById("modalGaleria").style.display = "flex";
+
+    const miniaturas = document.getElementById("miniaturas");
+
+    if(miniaturas){
+
+        miniaturas.innerHTML = "";
+
+        imgsProducto.forEach((imgSrc, i) => {
+
+            const thumb = document.createElement("img");
+            thumb.src = imgSrc;
+
+            thumb.onclick = function(e){
+                e.stopPropagation();
+
+                indexProducto = i;
+                document.getElementById("imgPrincipal").src = imgSrc;
+            };
+
+            miniaturas.appendChild(thumb);
+        });
+    }
+}
+
+function cerrarGaleria(){
+    document.getElementById("modalGaleria").style.display = "none";
+}
+
+function siguienteImagen(){
+
+    if(imgsProducto.length === 0) return;
+
+    indexProducto++;
+
+    if(indexProducto >= imgsProducto.length){
+        indexProducto = 0;
+    }
+
+    document.getElementById("imgPrincipal").src =
+    imgsProducto[indexProducto];
+}
+
+function anteriorImagen(){
+
+    if(imgsProducto.length === 0) return;
+
+    indexProducto--;
+
+    if(indexProducto < 0){
+        indexProducto = imgsProducto.length - 1;
+    }
+
+    document.getElementById("imgPrincipal").src =
+    imgsProducto[indexProducto];
+}
+
+/* =========================
+   CANTIDAD
+========================= */
 
 function sumar(btn){
 
-const card = btn.closest(".card");
+    const card = btn.closest(".card");
 
-const numero =
-card.querySelector(".numero");
+    const numero =
+    card.querySelector(".numero");
 
-let cantidad =
-parseInt(numero.textContent);
+    let cantidad =
+    parseInt(numero.textContent);
 
-cantidad++;
+    cantidad++;
 
-numero.textContent = cantidad;
+    numero.textContent = cantidad;
 
-actualizarTotal(card);
-
+    actualizarTotal(card);
 }
 
 function actualizarTotal(card){
 
-const precioTexto =
-card.querySelector(".precio").textContent;
+    const precioTexto =
+    card.querySelector(".precio").textContent;
 
-const precio =
-parseFloat(
-precioTexto.replace("$","")
-.replace(/,/g,"")
-);
+    const precio =
+    parseFloat(
+    precioTexto.replace("$","")
+    .replace(/,/g,"")
+    );
 
-const cantidad =
-parseInt(card.querySelector(".numero").textContent);
+    const cantidad =
+    parseInt(card.querySelector(".numero").textContent);
 
-const total =
-precio * cantidad;
+    const total =
+    precio * cantidad;
 
-card.querySelector(".total").textContent =
-"$" + total.toLocaleString();
-
+    card.querySelector(".total").textContent =
+    "$" + total.toLocaleString();
 }
+
+/* =========================
+   WHATSAPP
+========================= */
 
 function enviarWhatsApp(btn,nombre,precio){
 
-const card =
-btn.closest(".card");
+    const card =
+    btn.closest(".card");
 
-const talla =
-card.querySelector(".talla").value;
+    const talla =
+    card.querySelector(".talla").value;
 
-const cantidad =
-card.querySelector(".numero").textContent;
+    const cantidad =
+    card.querySelector(".numero").textContent;
 
-const total =
-precio * parseInt(cantidad);
+    const total =
+    precio * parseInt(cantidad);
 
-const mensaje =
+    const mensaje =
 
 `Hola, quiero realizar un pedido.
 
 Producto: ${nombre}
-
 Talla: ${talla}
-
 Cantidad: ${cantidad}
-
 Precio Unitario: $${precio}
-
 Total: $${total.toLocaleString()}
 
 ¿Me compartes la forma de compra y la información para realizar mi pedido?`;
 
-const telefono =
-"523343340062";
+    const telefono = "523343340062";
 
-const url =
-`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+    const url =
+    `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
 
-window.open(url,"_blank");
-
+    window.open(url,"_blank");
 }
+
+/* =========================
+   CARGA INICIAL
+========================= */
 
 window.onload = () => {
 
-document.querySelectorAll(".card")
-.forEach(card => {
+    document.querySelectorAll(".card")
+    .forEach(card => {
+        actualizarTotal(card);
+    });
 
-actualizarTotal(card);
+    /* SOLO GALERIA SUPERIOR */
+    document.querySelectorAll(".galeria-item img")
+    .forEach(function(imagen){
 
-});
+        imagen.addEventListener("click",function(e){
 
-/* ZOOM EN TODAS LAS IMÁGENES */
+            e.stopPropagation();
 
-document.querySelectorAll("img")
-.forEach(function(imagen){
+            if(this.closest(".productos")){
+                return;
+            }
 
-imagen.addEventListener("click",function(){
+            abrirImagen(this);
+        });
 
-abrirImagen(this);
+    });
 
-});
+    document.getElementById("visorImagen")
+    .addEventListener("click",function(){
+        cerrarImagen();
+    });
 
-});
+    document.getElementById("modalGaleria")
+    .addEventListener("click", function(e){
 
-/* CERRAR IMAGEN GRANDE */
+        if(e.target.id === "modalGaleria"){
+            cerrarGaleria();
+        }
 
-document.getElementById("visorImagen")
-.addEventListener("click",function(){
-
-cerrarImagen();
-
-});
+    });
 
 };
 
 function cerrarUrgente(){
-  document.getElementById("urgenteCard").remove();
+    const card = document.getElementById("urgenteCard");
+
+    if(card){
+        card.remove();
+    }
 }
-
-</script>
-
+function abrirComunicado(){
+    const img = document.querySelector(".comunicado-img");
+    abrirImagen(img);
+}
 </script>
 </body>
 </html>
