@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultra 3D Pro</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+
+    background: url("cancha.png") center/cover no-repeat;
+}
+
+/* ESCENA */
+.scene{
+    position:relative;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    perspective:2000px;
+}
+
+/* WRAPPER */
+.wrapper{
+    position:relative;
+    width:90%;
+    max-width:1000px;
+    height:55vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transform-style:preserve-3d;
+}
+
+/* ================= TARJETAS ESFERA ================= */
+
+.card{
+    position:absolute;
+    width:clamp(160px,28vw,280px);
+    height:clamp(160px,28vw,280px);
+    
+    border-radius:50%;
+    overflow:hidden;
+
+    background:transparent;
+
+    box-shadow:
+        0 0 40px rgba(0,255,120,0.4),
+        0 0 90px rgba(0,255,120,0.3);
+
+    transition:all 1s cubic-bezier(.22,1,.36,1);
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+}
+
+/* imagen SIEMPRE circular */
+.inner{
+    width:100%;
+    height:100%;
+    border-radius:50%;
+    overflow:hidden;
+
+    mask-image: radial-gradient(circle, white 70%, transparent 100%);
+    -webkit-mask-image: radial-gradient(circle, white 70%, transparent 100%);
+}
+
+.inner img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform:scale(1.08);
+    border-radius:50%;
+}
+
+/* ================= POSICIONES CIRCULARES ================= */
+
+.pos1{ transform:translateX(-38vw) scale(.6); opacity:.3;}
+.pos2{ transform:translateX(-20vw) scale(.85); opacity:.8;}
+
+.pos3{
+    transform:translateX(0) scale(1.1) translateZ(250px);
+    box-shadow:
+        0 0 80px rgba(0,200,80,1),
+        0 0 150px rgba(0,200,80,.6);
+}
+
+.pos4{ transform:translateX(20vw) scale(.85); opacity:.8;}
+.pos5{ transform:translateX(38vw) scale(.6); opacity:.3;}
+.pos6{ transform:translateX(0) scale(.9); opacity:0;}
+
+/* absorción */
+.absorb .card{
+    transform:translateX(0) scale(.4) !important;
+    opacity:0;
+}
+
+/* ================= OPEN LABEL ================= */
+
+.inner{
+    position:relative;
+}
+
+.open-label{
+    position:absolute;
+    bottom:12px;
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(145deg,#145a32,#2ecc71,#27ae60);
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    color:white;
+    opacity:0;
+    transition:.3s ease;
+}
+
+.card:hover .open-label{
+    opacity:1;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    backdrop-filter:blur(8px);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s ease;
+    z-index:9999;
+    padding:20px;
+}
+
+.modal.active{
+    opacity:1;
+    pointer-events:all;
+}
+
+.modal-box{
+    width:100%;
+    max-width:650px;
+    background:#121212;
+    padding:30px;
+    border-radius:20px;
+    color:white;
+    text-align:center;
+    transform:scale(.85);
+    transition:.3s ease;
+}
+
+.modal.active .modal-box{
+    transform:scale(1);
+}
+
+.modal-box img{
+    width:100%;
+    max-height:70vh;
+    object-fit:contain;
+    border-radius:15px;
+    margin-bottom:20px;
+}
+
+/* ================= CANCHA + EFECTOS ================= */
+
+body{
+    background: url("cancha.png") center/cover no-repeat;
+}
+
+/* LUCES */
+.luces{
+    position:absolute;
+    inset:-30%;
+    z-index:1;
+    pointer-events:none;
+
+    background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.25), transparent 40%),
+    radial-gradient(circle at 80% 10%, rgba(0,255,150,.25), transparent 45%),
+    radial-gradient(circle at 40% 80%, rgba(0,200,255,.18), transparent 50%),
+    radial-gradient(circle at 90% 70%, rgba(255,255,255,.12), transparent 45%);
+
+    animation: lucesMove 3s ease-in-out infinite alternate;
+}
+
+@keyframes lucesMove{
+    0%{transform:translate(0,0) scale(1);}
+    100%{transform:translate(3%, -2%) scale(1.1);}
+}
+
+/* PÚBLICO */
+.publico{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:200%;
+    height:30%;
+    z-index:2;
+    pointer-events:none;
+
+    background:
+    repeating-linear-gradient(
+        90deg,
+        rgba(0,0,0,0.75) 0px,
+        rgba(0,0,0,0.75) 5px,
+        rgba(255,255,255,0.05) 5px,
+        rgba(255,255,255,0.05) 9px
+    );
+
+    animation: crowdMove .4s linear infinite;
+    filter:blur(.8px);
+    opacity:.75;
+}
+
+@keyframes crowdMove{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-25px);}
+}
+
+/* título */
+h1{
+    margin-top:30px;
+    font-size:clamp(20px,5vw,40px);
+    color:#f5d8f3;
+    text-align:center;
+}
+
+.card{
+    cursor: pointer;
+}
+
+
+/* balon moviento*/
+/* ================= BALÓN OVERLAY ================= */
+
+#ball{
+    position:absolute;
+    width:280px;
+    height:280px;
+    opacity:0;
+    transform:scale(0.3);
+    transition:all .6s ease;
+    z-index:999;
+    pointer-events:none;
+}
+
+/* ================= EFECTO DE PATADA ================= */
+@keyframes kick{
+    0%{
+        transform: translate(0,0) scale(1) rotate(0deg);
+        opacity:1;
+    }
+
+    20%{
+        transform: translate(80px,-140px) scale(1.1) rotate(180deg);
+    }
+
+    40%{
+        transform: translate(160px,-220px) scale(1) rotate(360deg);
+    }
+
+    60%{
+        transform: translate(220px,-120px) scale(0.95) rotate(540deg);
+    }
+
+    80%{
+        transform: translate(140px,40px) scale(0.9) rotate(720deg);
+    }
+
+    100%{
+        transform: translate(0,0) scale(0.3) rotate(900deg);
+        opacity:0;
+    }
+}
+</style>
+<body>
+
+<div class="scene">
+
+    <div class="ball-glow"></div>
+<img id="ball" src="balon.png">
+    <div class="wrapper" id="wrapper">
+
+        <div class="card">
+            <div class="inner">
+                <img src="playeram (1).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="inner">
+                <img src="chamex.jpeg" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="inner">
+                <img src="playeram (3).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="inner">
+                <img src="playeram (2).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="inner">
+                <img src="playeram (4).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="inner">
+                <img src="playeram (5).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+
+           <div class="card">
+            <div class="inner">
+                <img src="playeram (6).png" alt="">
+                <span class="open-label">Ver detalles</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<h1>PASION POR EL MUNDIAL</h1>
+
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <img id="modal-img">
+        <p id="modal-text"></p>
+        <button id="closeModal">Cerrar</button>
+    </div>
+</div>
+
+<script>
+const cards = document.querySelectorAll('.card');
+const wrapper = document.getElementById('wrapper');
+const modal = document.getElementById("modal");
+const modalImg = document.getElementById("modal-img");
+const modalText = document.getElementById("modal-text");
+const closeModal = document.getElementById("closeModal");
+
+// ⚽ BALÓN
+const ball = document.getElementById("ball");
+
+let positions = ["pos1","pos2","pos3","pos4","pos5","pos6"];
+let rotations = 0;
+let interval;
+
+function startCarousel(){
+    rotations = 0;
+    wrapper.classList.remove("cube","absorb");
+    interval = setInterval(rotateCarousel,1200);
+}
+
+function rotateCarousel(){
+    positions.unshift(positions.pop());
+
+    cards.forEach((card,i)=>{
+        card.className="card "+positions[i];
+    });
+
+    rotations++;
+
+    if(rotations===6){
+        clearInterval(interval);
+        setTimeout(startAbsorb,800);
+    }
+}
+
+/* ================= ABSORCIÓN + BALÓN + PATADA ================= */
+
+function startAbsorb(){
+
+    wrapper.classList.add("absorb");
+
+    // aparece el balón
+    setTimeout(()=>{
+        ball.style.opacity = "1";
+        ball.style.transform = "scale(1)";
+    },500);
+
+    // patada
+    setTimeout(()=>{
+        ball.style.animation = "kick .8s ease forwards";
+    },1200);
+
+    // reinicio del ciclo
+    setTimeout(()=>{
+        ball.style.animation = "";
+        ball.style.opacity = "0";
+        ball.style.transform = "scale(0.3)";
+
+        startCube();
+    },2200);
+}
+
+/* ================= CUBE ================= */
+
+function startCube(){
+    wrapper.classList.remove("absorb");
+    wrapper.classList.add("cube");
+
+    const faces=["face1","face2","face3","face4","face5","face6"];
+
+    cards.forEach((card,i)=>{
+        card.className="card "+faces[i];
+    });
+
+    setTimeout(()=>{
+        wrapper.classList.remove("cube");
+        startCarousel();
+    },2000);
+}
+
+/* ================= MODAL DATA ================= */
+
+const proyectos = [
+{
+titulo:"Chaqueta Adidas del Año Nuevo Chino",
+descripcion:"Modelo con cremallera frontal, cuello alto, cierres tradicionales tipo palanca y un corte relajado que combina comodidad y estilo contemporáneo."
+},
+{
+titulo:"Diseño Urbano Oversize",
+descripcion:"Su silueta cuadrada y oversize fusiona la moda urbana con la inspiración cultural china, ofreciendo una presencia moderna y versátil."
+},
+{
+titulo:"Inspiración Tang Tradicional",
+descripcion:"Inspirada en la clásica chaqueta Tang, incorpora detalles orientales, cuello mandarín y elementos tradicionales reinterpretados para el streetwear actual."
+},
+{
+titulo:"Edición de Colección",
+descripcion:"Forma parte de una colección especial de Año Nuevo Chino, convirtiéndola en una prenda exclusiva y muy buscada por coleccionistas."
+},
+{
+titulo:"Comodidad para Uso Diario",
+descripcion:"Diseñada para brindar libertad de movimiento, ligereza y confort, permitiendo combinarla fácilmente con jeans o ropa casual."
+},
+{
+titulo:"Fusión Cultural y Deportiva",
+descripcion:"Integra la identidad deportiva de Adidas con elementos culturales asiáticos, creando una prenda única en el día a día."
+}
+];
+
+/* ================= CLICK CARDS ================= */
+
+cards.forEach((card,index)=>{
+    card.addEventListener("click",()=>{
+        clearInterval(interval);
+        wrapper.classList.remove("cube");
+
+        modalImg.src = card.querySelector("img").src;
+
+        modalText.innerHTML = `
+        <strong>${proyectos[index].titulo}</strong><br><br>
+        ${proyectos[index].descripcion}
+        `;
+
+        modal.classList.add("active");
+    });
+});
+
+/* ================= MODAL CONTROL ================= */
+
+function closeModalFunction(){
+    modal.classList.remove("active");
+    startCarousel();
+}
+
+closeModal.addEventListener("click", closeModalFunction);
+
+modal.addEventListener("click",(e)=>{
+    if(e.target === modal){
+        closeModalFunction();
+    }
+});
+
+document.addEventListener("keydown",(e)=>{
+    if(e.key==="Escape"){
+        closeModalFunction();
+    }
+});
+
+/* ================= START ================= */
+
+startCarousel();
+
+</script>
+
+</body>
+</html>
