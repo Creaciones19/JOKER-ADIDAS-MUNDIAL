@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JAKET ADIDAS DEL MUNDIAL</title>
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f5f5;
+padding:20px;
+}
+
+h1{
+text-align:center;
+margin-bottom:30px;
+font-size:32px;
+}
+
+/* GALERÍA SUPERIOR */
+
+.galeria{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-bottom:40px;
+}
+
+.galeria-item{
+background:#fff;
+height:350px;
+border-radius:12px;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.galeria-item img{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+transition:.3s;
+}
+
+
+.galeria-item img:hover{
+transform:scale(1.05);
+}
+
+/* PRODUCTOS */
+
+.productos{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+/* TARJETAS */
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+box-shadow:0 4px 15px rgba(0,0,0,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-3px);
+}
+
+.card img{
+width:100%;
+height:280px;
+object-fit:contain;
+border-radius:10px;
+cursor:pointer;
+background:white;
+transition:.3s;
+}
+
+.card img:hover{
+transform:scale(1.05);
+}
+
+.card h3{
+margin-top:12px;
+margin-bottom:8px;
+font-size:20px;
+text-align:center;
+}
+
+.precio{
+font-size:24px;
+font-weight:bold;
+color:#009933;
+margin-bottom:10px;
+text-align:center;
+}
+
+/* TALLAS */
+
+.talla{
+width:100%;
+padding:10px;
+border:1px solid #ddd;
+border-radius:8px;
+margin-bottom:15px;
+}
+
+/* CANTIDAD */
+
+.cantidad-box{
+margin-top:10px;
+margin-bottom:15px;
+}
+
+.cantidad-box label{
+display:block;
+margin-bottom:8px;
+font-weight:bold;
+text-align:center;
+}
+
+.cantidad{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+}
+
+.numero{
+font-size:22px;
+font-weight:bold;
+min-width:40px;
+text-align:center;
+}
+
+.mas{
+width:40px;
+height:40px;
+border:none;
+border-radius:50%;
+background:#111;
+color:white;
+font-size:22px;
+cursor:pointer;
+transition:.3s;
+}
+
+.mas:hover{
+background:#333;
+}
+
+/* TOTAL */
+
+.total{
+margin-top:12px;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+color:#009933;
+}
+
+/* BOTÓN WHATSAPP */
+
+.confirmar{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:none;
+border-radius:10px;
+background:#25D366;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.confirmar:hover{
+background:#1da851;
+}
+
+/* VISOR DE IMAGEN GRANDE */
+
+.visor-imagen{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.95);
+justify-content:center;
+align-items:center;
+z-index:99999;
+cursor:pointer;
+padding:20px;
+}
+
+.visor-imagen img{
+max-width:95%;
+max-height:95%;
+object-fit:contain;
+border-radius:15px;
+box-shadow:0 0 30px rgba(255,255,255,.3);
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.galeria{
+grid-template-columns:repeat(2,1fr);
+}
+
+.productos{
+grid-template-columns:repeat(2,1fr);
+}
+
+.galeria-item{
+height:250px;
+}
+
+}
+
+@media(max-width:480px){
+
+.galeria{
+grid-template-columns:1fr;
+}
+
+.productos{
+grid-template-columns:1fr;
+}
+
+.galeria-item{
+height:220px;
+}
+
+.card img{
+height:240px;
+}
+
+}
+.modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.9);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+#videoGrande{
+    max-width:90%;
+    max-height:90%;
+}
+
+.cerrar{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
+
+.comunicado-wrapper{
+
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  margin: 20px 0;
+
+}
+
+/* ESTE DA MOVIEMTO AL COMUNCADO*/
+
+.comunicado-img{
+
+  width: 85%;
+
+  max-width: 320px;
+
+  height: auto;
+
+  border-radius: 14px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+
+}
+.comunicado-img{
+  width: 85%;
+  max-width: 320px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+.comunicado-img{
+  cursor: pointer;
+}
+.comunicado-img:hover{
+  transform: scale(1.03);
+  transition: 0.2s;
+}
+
+.urgente-card{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 180px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  overflow: hidden;
+  z-index: 9999;
+  animation: float 2s infinite;
+}
+
+.urgente-card img{
+  width: 100%;
+  cursor: pointer;
+}
+
+.urgente-card p{
+  font-size: 12px;
+  margin: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.urgente-badge{
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  padding: 4px 6px;
+  border-radius: 5px;
+}
+
+.cerrar-btn{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: black;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes float{
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+.menu-categorias{
+    background:#111;
+    padding:15px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:9999;
+    box-shadow:0 2px 10px rgba(0,0,0,.3);
+}
+
+.menu-categorias a{
+    color:white;
+    text-decoration:none;
+    margin:0 10px;
+    padding:10px 20px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.menu-categorias a:hover{
+    background:white;
+    color:black;
+}
+
+body{
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+</style>
+
+</head>
+<body>
+
+
+<nav class="menu-categorias">
+    <a href="index.html">Essentials Fear Of God<</a>
+    <a href="indexcham2.html">Jacket Adidas</a>
+    <a href="indexmex.html">PASION POR MEXICO</a>
+    <a href="bts.html">Productos Coreanos </a>
+</nav>
+<!-- aqui esta agregado el indexcubo.html -->
+<iframe
+    src="btscubo.html"
+    width="100%"
+    height="600"
+    frameborder="0"
+    style="border:none; display:block; margin-bottom:30px;">
+</iframe>
+
+<div class="galeria">
+
+    <div class="galeria-item">
+        <video onclick="abrirVideo(this)" muted>
+            <source src="video1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="galeria-item">
+        <video onclick="abrirVideo(this)" muted>
+            <source src="video2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+</div>
+
+<div id="modalVideo" class="modal">
+    <span class="cerrar" onclick="cerrarVideo()">&times;</span>
+
+    <video id="videoGrande" controls>
+        <source src="" type="video/mp4">
+    </video>
+</div>
+<!-- GALERÍA SUPERIOR -->
+
+<div class="galeria">
+
+<div class="galeria-item">
+<img src="nuevos listados (4).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (5).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (6).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (7).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (8).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (9).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (10).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (11).jpg" alt="">
+</div>
+
+<div class="galeria-item">
+<img src="nuevos listados (12).jpg" alt="">
+</div>
+
+
+</div>
+
+
+<!-- COMUNICADO -->
+
+<div class="comunicado-wrapper">
+  <img src="comunicado.png" alt="Comunicado" class="comunicado-img">
+</div>
+
+<div id="urgenteCard" class="urgente-card">
+  <button class="cerrar-btn" onclick="cerrarUrgente()">×</button>
+
+  <span class="urgente-badge">🚨 URGENTE</span>
+
+  <img src="comunicado.png" alt="Comunicado" onclick="abrirComunicado()">
+  <p onclick="abrirComunicado()">Toca para ver información importante</p>
+</div>
+<!-- PRODUCTOS -->
+
+<div class="productos">
+
+
+<!-- ESPRESSO -->
+
+<div class="card">
+
+<img src="nuevos listados (21).jpg" alt="Espresso">
+
+<h3>Chamarra Espresso</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Espresso',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<!-- GRIS -->
+
+<div class="card">
+
+<img src="nuevos listados (10).jpg" alt="Gris">
+
+<h3>Chamarra Gris</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Ochre',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<!-- OCHRE -->
+
+<div class="card">
+
+<img src="nuevos listados (14).jpg" alt="Ochre">
+
+<h3>Chamarra Ochre</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Ochre',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<!-- VERDE -->
+
+<div class="card">
+
+<img src="nuevos listados (15).jpg" alt="Verde">
+
+<h3>Chamarra Verde</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Verde',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+
+<!-- PAGEANT BLUE -->
+
+<div class="card">
+
+<img src="nuevos listados (16).jpg" alt="Pageant Blue">
+
+<h3>Chamarra Pageant Blue</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Pageant Blue',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+
+<!-- MARSHMALLOW -->
+
+<div class="card">
+
+<img src="nuevos listados (20).jpg" alt="Marshmallow">
+
+<h3>Chamarra Marshmallow</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Marshmallow',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<!-- ADRENALINE RUSH -->
+
+<div class="card">
+
+<img src="nuevos listados (13).jpg" alt="Adrenaline Rush">
+
+<h3>Chamarra Adrenaline Rush</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Adrenaline Rush',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<!-- MELT -->
+
+<div class="card">
+
+<img src="nuevos listados (22).jpg" alt="Melt">
+
+<h3>Chamarra Melt</h3>
+
+<div class="precio">$1250</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1250</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Melt',1250)">
+Confirmar Pedido
+</button>
+
+</div>
+<div id="visorImagen" class="visor-imagen">
+    <img id="imagenGrande" src="">
+</div>
+
+<!-- ===================================================== -->
+<!-- COLORES FUTUROS - DESCOMENTAR CUANDO LLEGUEN NUEVOS -->
+<!-- ===================================================== -->
+
+<!--
+
+<div class="card">
+
+<img src="nuevo-color.jpg" alt="Nuevo Color">
+
+<h3>Chamarra Nuevo Color</h3>
+
+<div class="precio">$1450</div>
+
+<select class="talla">
+<option>CH</option>
+<option>M</option>
+<option>G</option>
+<option>XL</option>
+</select>
+
+<div class="cantidad-box">
+
+<label>Cantidad</label>
+
+<div class="cantidad">
+
+<span class="numero">1</span>
+
+<button class="mas" onclick="sumar(this)">+</button>
+
+</div>
+
+</div>
+
+<div class="total">$1450</div>
+
+<button class="confirmar"
+onclick="enviarWhatsApp(this,'Chamarra Nuevo Color',1450)">
+Confirmar Pedido
+</button>
+
+</div>
+
+-->
+
+<!-- ===================================================== -->
+<!-- FIN COLORES FUTUROS -->
+<!-- ===================================================== -->
+<script>
+    
+function abrirVideo(video){
+    document.getElementById("modalVideo").style.display = "flex";
+
+    const videoGrande = document.getElementById("videoGrande");
+
+    videoGrande.src = video.querySelector("source").src;
+    videoGrande.load();
+    videoGrande.play();
+}
+
+function cerrarVideo(){
+    const videoGrande = document.getElementById("videoGrande");
+
+    videoGrande.pause();
+    document.getElementById("modalVideo").style.display = "none";
+}
+
+function abrirImagen(img){
+
+document.getElementById("imagenGrande").src = img.src;
+
+document.getElementById("visorImagen").style.display = "flex";
+
+}
+
+function cerrarImagen(){
+
+document.getElementById("visorImagen").style.display = "none";
+
+}
+
+function sumar(btn){
+
+const card = btn.closest(".card");
+
+const numero =
+card.querySelector(".numero");
+
+let cantidad =
+parseInt(numero.textContent);
+
+cantidad++;
+
+numero.textContent = cantidad;
+
+actualizarTotal(card);
+
+}
+
+function actualizarTotal(card){
+
+const precioTexto =
+card.querySelector(".precio").textContent;
+
+const precio =
+parseFloat(
+precioTexto.replace("$","")
+.replace(/,/g,"")
+);
+
+const cantidad =
+parseInt(card.querySelector(".numero").textContent);
+
+const total =
+precio * cantidad;
+
+card.querySelector(".total").textContent =
+"$" + total.toLocaleString();
+
+}
+
+function enviarWhatsApp(btn,nombre,precio){
+
+const card =
+btn.closest(".card");
+
+const talla =
+card.querySelector(".talla").value;
+
+const cantidad =
+card.querySelector(".numero").textContent;
+
+const total =
+precio * parseInt(cantidad);
+
+const mensaje =
+
+`Hola, quiero realizar un pedido.
+
+Producto: ${nombre}
+
+Talla: ${talla}
+
+Cantidad: ${cantidad}
+
+Precio Unitario: $${precio}
+
+Total: $${total.toLocaleString()}
+
+¿Me compartes la forma de compra y la información para realizar mi pedido?`;
+
+const telefono =
+"523343340062";
+
+const url =
+`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
+
+window.open(url,"_blank");
+
+}
+
+window.onload = () => {
+
+document.querySelectorAll(".card")
+.forEach(card => {
+
+actualizarTotal(card);
+
+});
+
+/* ZOOM EN TODAS LAS IMÁGENES */
+
+document.querySelectorAll("img")
+.forEach(function(imagen){
+
+imagen.addEventListener("click",function(){
+
+abrirImagen(this);
+
+});
+
+});
+
+/* CERRAR IMAGEN GRANDE */
+
+document.getElementById("visorImagen")
+.addEventListener("click",function(){
+
+cerrarImagen();
+
+});
+
+};
+
+function cerrarUrgente(){
+  document.getElementById("urgenteCard").remove();
+}
+
+</script>
+
+</script>
+</body>
+</html>

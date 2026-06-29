@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<title>Intro</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+}
+
+#videoBox{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+}
+
+#videoBox video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="videoBox">
+    <video id="introVideo" autoplay muted playsinline>
+        <source src="telon (3).mp4" type="video/mp4">
+    </video>
+</div>
+
+<script>
+
+const introVideo = document.getElementById("introVideo");
+
+introVideo.addEventListener("ended", () => {
+
+    // Ir a la página donde está el cubo
+    window.location.href = "indexcubo.html";
+
+});
+
+</script>
+
+</body>
+</html>
