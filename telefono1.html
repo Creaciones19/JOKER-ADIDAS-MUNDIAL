@@ -10,7 +10,15 @@
 body{
   height:100vh;
   overflow:hidden;
-  background:radial-gradient(circle,#111,#000);
+    background:
+    radial-gradient(
+        circle at center,
+        #000 0%,
+        #000 40%,
+        #0d0d0d 55%,
+        #1d1d1d 72%,
+        #303030 100%
+    );
   display:flex;
   justify-content:center;
   align-items:center;
@@ -174,19 +182,27 @@ body{
   pointer-events:none;
 }
 .product{
-  position:absolute;
- width:200px;
-  height:270px;
-  border-radius:15px;
-  overflow:hidden;
-  left:50%;
-  top:50%;
-  opacity:0;
-  transform:translate(-50%,-50%) scale(.2);
-  transition:1s;
-  cursor:pointer;
-}
+    position:absolute;
+    width:200px;
+    height:270px;
 
+    border-radius:15px;
+    overflow:hidden;
+
+    left:50%;
+    top:50%;
+
+    opacity:0;
+    transform:translate(-50%,-50%) scale(.2);
+
+    transition:1s;
+    cursor:pointer;
+
+    box-shadow:
+        0 0 15px #ff00cc,
+        0 0 35px rgba(255,0,204,.8),
+        0 0 60px rgba(255,0,204,.4);
+}
 .product img{
   width:100%;
   height:100%;
@@ -301,6 +317,69 @@ body{
     object-fit:cover;
     display:block;
 }
+
+
+/* salida real tipo "sale de la pantalla" */
+.screen-img.zoom-out {
+  animation: zoomOut 0.6s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+@keyframes zoomOut {
+  0% {
+    transform: scale(1);
+    filter: blur(0px);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1.6) translateZ(80px);
+    filter: blur(0px);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.2) translateZ(120px);
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+
+
+
+.out-img{
+  position:absolute;
+  top:10px;
+  left:10px;
+  width:calc(100% - 20px);
+  height:calc(100% - 20px);
+  object-fit:cover;
+  border-radius:30px;
+  z-index:50;
+
+  opacity:0;
+  pointer-events:none;
+  transform: scale(0.8);
+}
+
+.out-img.active{
+  animation: popOut 0.6s cubic-bezier(.25,.8,.25,1) forwards;
+}
+
+@keyframes popOut{
+  0%{
+    opacity:1;
+    transform: scale(1);
+  }
+  60%{
+    opacity:1;
+    transform: scale(1.7) translateZ(150px);
+  }
+  100%{
+    opacity:0;
+    transform: scale(2.2) translateZ(400px);
+  }
+}
 </style>
 </head>
 
@@ -311,9 +390,9 @@ body{
     <div class="phone" id="phone">
 
         <div class="screen">
-            <img src="imtel.png" class="screen-img" id="screenImg">
+            <img src="panta1.png" class="screen-img" id="screenImg">
         </div>
-
+<img src="imagente2.png" class="out-img" id="outImg">
         <div class="flash" id="flash"></div>
 
         <div class="dust" id="dust"></div>
@@ -344,14 +423,13 @@ body{
 <script>
 const phone = document.getElementById("phone");
 const crack = document.getElementById("crack");
-
+const screenImg = document.getElementById("screenImg");
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modalImg");
 const modalTitle = document.getElementById("modalTitle");
 const modalText = document.getElementById("modalText");
 
 const container = document.querySelector(".scene");
-
 
 let state = "intro";
 let rotY = 0;
@@ -361,19 +439,19 @@ let orbitTime = 0;
 let returning = false;
 
 let activeCard = null;
+let modalOpen = false; // 🔥 CONTROL GLOBAL
 
 const data = [
   { img: "chamarra1 (1).png", title: "Chamarra México", text: "Chamarra premium impermeable" },
   { img: "chamarra1 (2).png", title: "Chamarra Invierno", text: "Ideal para frío extremo" },
   { img: "chamarra1 (3).png", title: "Chamarra Street", text: "Estilo urbano moderno" },
   { img: "chamarra1 (4).png", title: "Chamarra Ligera", text: "Perfecta para uso diario" },
-
-  // 🔥 PRUEBA
   { img: "chamarra1 (5).png", title: "Chamarra Sport", text: "Comodidad y movimiento" },
   { img: "chamarra1 (6).png", title: "Chamarra Premium", text: "Diseño elegante y resistente" },
- 
 ];
+
 const radius = 260 + data.length * 35;
+const orbitRadius = 320; // 🔥 MÁS ESPACIO ENTRE TARJETAS
 const products = [];
 
 /* =========================
@@ -395,6 +473,8 @@ data.forEach(item => {
 
   p.addEventListener("click", () => {
 
+    modalOpen = true; // 🔥 PAUSA TODO
+
     activeCard = obj;
 
     modalImg.src = obj.data.img;
@@ -411,9 +491,12 @@ data.forEach(item => {
 });
 
 /* =========================
-   MODAL
+   CERRAR MODAL
 ========================= */
 function closeModal() {
+
+  modalOpen = false; // 🔥 REANUDA TODO
+
   modal.classList.remove("active");
 
   if (activeCard) {
@@ -427,56 +510,68 @@ function closeModal() {
 }
 
 /* =========================
-   LOOP TELEFONO (INFINITO)
+   LOOP TELEFONO
 ========================= */
 function phoneLoop() {
 
-    if (state === "intro") {
-
-        rotY += 2;
-
-        phone.style.transform = `rotateX(10deg) rotateY(${rotY}deg)`;
-
-        if (rotY >= 360) {
-
-            rotY = 0;
-            state = "spawn";
-
-            // 💥 Reiniciar el efecto de pantalla rota
-            crack.classList.remove("active");
-            crack.classList.remove("absorbing");
-            crack.classList.remove("clean");
-
-            void crack.offsetWidth; // fuerza reinicio de la animación
-
-            crack.style.opacity = "1";
-            crack.classList.add("active");
-
-            // 💥 Flash + vibración
-            flash.classList.add("active");
-            phone.style.animation = "shake 0.6s ease";
-
-            setTimeout(() => {
-
-                flash.classList.remove("active");
-                phone.style.animation = "";
-
-            },300);
-
-            // Iniciar tarjetas
-            nextCard();
-
-        }
-
-    }
-
+  if (modalOpen) {
     requestAnimationFrame(phoneLoop);
+    return;
+  }
 
+  if (state === "intro") {
+
+    rotY += 2;
+
+    phone.style.transform = `rotateX(10deg) rotateY(${rotY}deg)`;
+
+    if (rotY >= 360) {
+
+      rotY = 0;
+      state = "spawn";
+
+      crack.classList.remove("active");
+      crack.classList.remove("absorbing");
+      crack.classList.remove("clean");
+
+      void crack.offsetWidth;
+
+      crack.style.opacity = "1";
+      crack.classList.add("active");
+
+     flash.classList.add("active");
+phone.style.animation = "shake 0.6s ease";
+
+// cambio de imagen después de 250ms
+flash.classList.add("active");
+phone.style.animation = "shake 0.6s ease";
+crack.classList.add("active");
+
+// 🚀 salida de imagen
+setTimeout(() => {
+  outImg.classList.add("active");
+}, 120);
+
+// 🧹 limpiar flash
+setTimeout(() => {
+  flash.classList.remove("active");
+  phone.style.animation = "";
+}, 300);
+
+// ⛔ IMPORTANTE: nextCard DESPUÉS del efecto
+setTimeout(() => {
+  nextCard();
+}, 500);
+    }
+  }
+
+  requestAnimationFrame(phoneLoop);
 }
 
 phoneLoop();
+
 /* =========================
-   SALIDA DE TARJETAS
+   TARJETAS
 ========================= */
 function nextCard() {
 
@@ -489,18 +584,14 @@ function nextCard() {
 
   const p = products[index];
 
-  // tiempo base por tarjeta
-  const baseDelay = 600;
-
   p.el.style.opacity = "1";
   p.el.style.transition = "1s";
   p.el.style.transform = "translate(-50%,-50%) scale(1.5)";
 
-  setTimeout(() => {
+setTimeout(() => {
 
     const a = (index / products.length) * Math.PI * 2;
 
-    // ✅ AQUÍ YA USAS RADIUS (NO 260)
     p.x = Math.cos(a) * radius;
     p.y = Math.sin(a) * radius;
 
@@ -512,28 +603,39 @@ function nextCard() {
     index++;
     nextCard();
 
-  }, baseDelay + Math.random() * 200);
+}, 1200); // 🔥 MÁS LENTO Y ESTABLE
 }
+
 /* =========================
-   ORBITA
+   ÓRBITA (MÁS SEPARADA)
 ========================= */
 function orbitLoop() {
+
+  if (modalOpen) {
+    requestAnimationFrame(orbitLoop);
+    return;
+  }
 
   if (state !== "orbit") return;
 
   angle += 0.01;
 
+  const paso = (Math.PI * 2) / products.length;
+
   products.forEach((obj, i) => {
 
-    const a = angle + (i / products.length) * Math.PI * 2;
+    const a = angle + i * paso;
 
-    obj.x = Math.cos(a) * 260;
-    obj.y = Math.sin(a) * 260;
+    obj.x = Math.cos(a) * orbitRadius;
+    obj.y = Math.sin(a) * orbitRadius;
 
     obj.el.style.transition = "0s";
+
     obj.el.style.transform =
-      `translate(${obj.x}px, ${obj.y}px)
-       translate(-50%,-50%) scale(1)`;
+      `translate(calc(-50% + ${obj.x}px),
+                 calc(-50% + ${obj.y}px))
+       scale(1)`;
+
   });
 
   if (!returning && Date.now() - orbitTime > 8000) {
@@ -543,9 +645,8 @@ function orbitLoop() {
 
   requestAnimationFrame(orbitLoop);
 }
-
 /* =========================
-   REGRESO + RESET TOTAL
+   RESET
 ========================= */
 function returnToPhone() {
 
@@ -562,44 +663,37 @@ function returnToPhone() {
   });
 
   setTimeout(() => {
-
     resetCycle();
-
   }, 1500);
 }
 
 /* =========================
-   🔥 RESET COMPLETO (CLAVE)
+   RESET TOTAL
 ========================= */
 function resetCycle() {
 
-    index = 0;
-    angle = 0;
-    rotY = 0;
-    orbitTime = 0;
-    returning = false;
-    state = "intro";
+  index = 0;
+  angle = 0;
+  rotY = 0;
+  orbitTime = 0;
+  returning = false;
+  state = "intro";
+screenImg.src = "panta1.png";
+  crack.classList.remove("active");
+  crack.style.opacity = "0";
 
-    // limpiar efecto de pantalla rota
-    crack.classList.remove("active");
-    crack.style.opacity = "0";
+  phone.style.transition = "none";
+  phone.style.transform = "rotateX(10deg) rotateY(0deg)";
 
-    // reiniciar teléfono
-    phone.style.transition = "none";
-    phone.style.transform = "rotateX(10deg) rotateY(0deg)";
+  products.forEach(p => {
 
-    // reiniciar tarjetas
-    products.forEach(p => {
+    p.x = 0;
+    p.y = 0;
 
-        p.x = 0;
-        p.y = 0;
-
-        p.el.style.transition = "none";
-        p.el.style.opacity = "0";
-        p.el.style.transform = "translate(-50%,-50%) scale(0.2)";
-
-    });
-
+    p.el.style.transition = "none";
+    p.el.style.opacity = "0";
+    p.el.style.transform = "translate(-50%,-50%) scale(0.2)";
+  });
 }
 </script>
 </body>

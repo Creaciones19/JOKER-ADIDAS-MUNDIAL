@@ -368,18 +368,21 @@ h1{
 
 .bts-line{
     position:absolute;
-    top:55%; /* antes 50% */
+    top:55%;
     left:50%;
     transform:translate(-50%,-55%);
     width:100%;
-    display:flex;
-    justify-content:center;
-    align-items:flex-end;
-    gap:10px;
-    padding-bottom:30px;
+
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    align-items:end;
+    justify-items:center;
+
+    gap:2px;
+    padding:0 5px 30px;
+
     transition:1.5s ease;
 }
-
 /* estado final abajo */
 .bg-bts.bottom .bts-line{
     top:auto;
@@ -445,6 +448,40 @@ h1{
 body{
     isolation: isolate;
 }
+@media (max-width:1024px){
+
+    .bts-line{
+        grid-template-columns:repeat(4,1fr);
+        grid-auto-rows:auto;
+        row-gap:12px;
+        padding:10px;
+        transform:translate(-50%,-50%);
+    }
+
+    .member{
+        width:22vw;
+        max-width:120px;
+        min-width:70px;
+    }
+
+    .m5{ grid-column:1; grid-row:2; }
+    .m6{ grid-column:2; grid-row:2; }
+    .m7{ grid-column:3; grid-row:2; }
+}
+
+@media (max-width:480px){
+
+    .bts-line{
+        grid-template-columns:repeat(3,1fr);
+        row-gap:10px;
+    }
+
+    .m4{ grid-column:1; grid-row:2; }
+    .m5{ grid-column:2; grid-row:2; }
+    .m6{ grid-column:3; grid-row:2; }
+    .m7{ grid-column:2; grid-row:3; }
+}
+
 </style>
 </head>
 
