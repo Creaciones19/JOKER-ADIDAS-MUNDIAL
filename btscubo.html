@@ -15,7 +15,7 @@ body{
     min-height:100vh;
     display:flex;
     flex-direction:column;
-    justify-content:flex-start; /* 🔥 clave */
+    justify-content:center; /* 🔥 clave canbar cuaando se quiera el cubo mas arriba  para poner los chicos en la imagen abajo del cubo moviendose*/
     align-items:center;
 
     padding-top:20px; /* espacio arriba */
@@ -155,6 +155,67 @@ h1{
         0 0 80px #e0aaff,
         0 0 120px #e0aaff;
 }
+
+
+h1{
+    position:relative;
+    top:-50px;   /* súbelo 50px */
+
+    margin:0;
+    margin-bottom:60px;
+
+    font-size:clamp(20px,5vw,40px);
+    font-weight:300;
+    color:#b700ff;
+    text-align:center;
+
+    text-shadow:
+        0 0 10px #b700ff,
+        0 0 20px #b700ff,
+        0 0 40px #d966ff,
+        0 0 80px #e0aaff,
+        0 0 120px #e0aaff;
+}
+/* ==========================================================
+   TÍTULO PRINCIPAL
+
+   ESTE BLOQUE DEBE UTILIZARSE CUANDO SE MUESTREN LAS
+   IMÁGENES PNG DE BTS EN LA PARTE INFERIOR DE LA PÁGINA.
+
+   En ese modo, el cubo se coloca un poco más arriba para
+   dejar espacio a los integrantes, por lo que este título
+   también queda correctamente alineado.
+
+   Si posteriormente se elimina el fondo con las imágenes
+   PNG de BTS y únicamente se utiliza el video de fondo,
+   puede ser necesario modificar los valores de margin-top
+   y margin-bottom para volver a centrar visualmente el
+   título con respecto al cubo.
+
+   margin-top    -> Controla la distancia desde la parte superior.
+   margin-bottom -> Controla la separación entre el título y el cubo.
+
+========================================================== */
+
+/*
+h1{
+    margin:0;
+    margin-top:20px;
+    margin-bottom:60px;
+
+    font-size:clamp(20px,5vw,40px);
+    font-weight:300;
+    color:#b700ff;
+    text-align:center;
+
+    text-shadow:
+        0 0 10px #b700ff,
+        0 0 20px #b700ff,
+        0 0 40px #d966ff,
+        0 0 80px #e0aaff,
+        0 0 120px #e0aaff;
+}
+*/
 /* ================= MODAL ================= */
 
 .modal{
@@ -491,18 +552,28 @@ body{
 <div class="bg-bts">
 
     <video autoplay muted loop id="bgVideo">
-        <source src="videobts.mp4" type="video/mp4">
+        <source src="btsbailando.mp4" type="video/mp4">
     </video>
 
-    <div class="bts-line">
-        <img src="bts (1).png" class="member m1">
-        <img src="bts (2).png" class="member m2">
-        <img src="bts (3).png" class="member m3">
-        <img src="bts (4).png" class="member m4">
-        <img src="bts (5).png" class="member m5">
-        <img src="bts (6).png" class="member m6">
-        <img src="bts (7).png" class="member m7">
-    </div>
+  <!--
+====================================================
+IMÁGENES DE BTS
+Si deseas mostrar las imágenes de BTS en lugar del
+video, descomenta este bloque. Las imágenes aparecerán
+debajo del teléfono con movimiento.
+====================================================
+
+<div class="bts-line">
+    <img src="bts (1).png" class="member m1">
+    <img src="bts (2).png" class="member m2">
+    <img src="bts (3).png" class="member m3">
+    <img src="bts (4).png" class="member m4">
+    <img src="bts (5).png" class="member m5">
+    <img src="bts (6).png" class="member m6">
+    <img src="bts (7).png" class="member m7">
+</div>
+
+-->
 
 </div>
 
