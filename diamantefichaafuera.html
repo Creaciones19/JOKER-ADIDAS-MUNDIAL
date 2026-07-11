@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Vitrina Holográfica</title>
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+body{
+
+height:100vh;
+
+background:
+radial-gradient(circle,#6b0099,#050005);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-family:Arial;
+
+overflow:hidden;
+
+color:white;
+
+perspective:1200px;
+
+}
+
+
+
+/* ESCENA */
+
+.scene{
+    text-align:center;
+    transform:translateY(50px);
+}
+
+/* DIAMANTE */
+.diamond{
+
+width:360px;
+height:360px;
+
+padding:12px;
+
+border-radius:45px;
+
+
+background:
+linear-gradient(
+135deg,
+white,
+#ff00ff,
+#6600ff,
+white
+);
+
+
+box-shadow:
+
+0 0 40px #ff00ff,
+0 0 120px #7200ff;
+
+
+position:relative;
+
+top:-10px;
+
+overflow:hidden;
+
+
+/* siempre rombo */
+
+transform:rotate(45deg);
+
+
+animation:giro 8s infinite linear;
+
+
+}
+
+
+
+.diamond::after{
+
+content:"";
+
+position:absolute;
+
+top:-100%;
+left:-50%;
+
+width:40%;
+height:300%;
+
+background:white;
+
+opacity:.35;
+
+transform:rotate(25deg);
+
+animation:reflejo 3s infinite;
+
+
+}
+
+
+
+
+
+@keyframes reflejo{
+
+0%{
+left:-60%;
+}
+
+100%{
+left:130%;
+}
+
+}
+
+
+
+
+.diamond-inner{
+
+width:100%;
+height:100%;
+
+background:black;
+
+overflow:hidden;
+
+border-radius:35px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+transform:rotate(-45deg);
+
+animation:contraGiro 8s infinite linear;
+
+}
+
+@keyframes contraGiro{
+
+from{
+    transform:rotate(-45deg);
+}
+
+to{
+    transform:rotate(-405deg);
+}
+
+}
+
+
+.producto{
+
+
+width:140%;
+height:140%;
+
+
+object-fit:contain;
+
+
+filter:
+drop-shadow(0 0 30px #ff00ff);
+
+
+
+transition:.8s;
+
+
+}
+
+
+
+
+
+/* ENTRADA */
+
+.entrada{
+
+animation:entrada 1s ease;
+
+}
+
+
+
+@keyframes entrada{
+
+
+0%{
+
+opacity:0;
+
+transform:
+scale(.2)
+translateZ(-500px);
+
+}
+
+
+100%{
+
+opacity:1;
+
+transform:
+scale(1);
+
+}
+
+
+}
+
+
+
+
+
+/* SALIDA */
+
+.salida{
+
+animation:salida .7s forwards;
+
+}
+
+
+
+@keyframes salida{
+
+
+100%{
+
+opacity:0;
+
+
+transform:
+scale(.1);
+
+
+filter:blur(20px);
+
+}
+
+
+}
+
+
+
+
+
+/* GIRO DEL ROMBO */
+
+@keyframes giro{
+
+
+from{
+
+transform:rotate(45deg);
+
+}
+
+
+to{
+
+transform:rotate(405deg);
+
+}
+
+
+}
+
+
+
+
+
+
+/* PARTICULAS */
+
+
+.particula{
+
+position:fixed;
+
+width:8px;
+
+height:8px;
+
+border-radius:50%;
+
+background:#ff00ff;
+
+box-shadow:
+
+0 0 20px #ff00ff;
+
+
+animation:explota 1s forwards;
+
+}
+
+
+
+@keyframes explota{
+
+
+to{
+
+
+transform:
+
+translate(
+var(--x),
+var(--y)
+)
+
+scale(0);
+
+
+opacity:0;
+
+
+}
+
+
+}
+
+
+
+
+
+/* TEXTO */
+
+h1{
+
+margin-top:28px;
+
+font-size:26px;
+
+color:#ff7cff;
+
+}
+
+
+p{
+
+max-width:340px;
+
+margin:7px auto;
+
+color:#ddd;
+
+font-size:15px;
+
+}
+
+
+
+
+
+/* BOTONES */
+
+
+.controls{
+
+margin-top:8px;
+
+display:flex;
+
+justify-content:center;
+
+gap:12px;
+
+}
+
+
+
+button{
+
+border:none;
+
+padding:8px 20px;
+
+border-radius:30px;
+
+cursor:pointer;
+
+font-size:14px;
+
+background:#ff00ff;
+
+color:white;
+
+
+box-shadow:
+
+0 0 20px #ff00ff;
+
+
+}
+
+
+
+button:hover{
+
+transform:scale(1.1);
+
+}
+
+
+
+.whatsapp{
+
+background:#25D366;
+
+box-shadow:
+
+0 0 25px #25D366;
+
+padding:10px 20px;
+
+font-size:13px;
+
+margin-top:8px;
+
+}
+
+
+@media(max-width:600px){
+
+body{
+
+height:100dvh;
+overflow:hidden;
+
+}
+
+
+.scene{
+    text-align:center;
+    transform:translateY(10px);
+}
+/* rombo adaptable */
+
+.diamond{
+
+width:260px;
+height:260px;
+
+}
+
+
+
+/* imagen dentro */
+
+.producto{
+
+width:125%;
+height:125%;
+
+}
+
+
+
+
+h1{
+
+margin-top:35px;
+font-size:24px;
+
+}
+
+
+p{
+
+font-size:15px;
+
+max-width:280px;
+
+margin:10px auto;
+
+}
+
+
+
+.controls{
+
+margin-top:15px;
+
+}
+
+
+
+button{
+
+padding:12px 24px;
+
+}
+
+
+
+.whatsapp{
+
+margin-top:5px;
+
+}
+
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="scene">
+
+
+<div class="diamond" id="diamond">
+
+
+<div class="diamond-inner">
+
+<img 
+id="producto"
+class="producto"
+src="chamarra1 (1).png">
+
+</div>
+
+
+</div>
+
+
+
+<h1 id="nombre">
+Chamarra Adidas Premium
+</h1>
+
+
+<p id="descripcion">
+Chamarra deportiva premium con diseño moderno,
+tela resistente al viento y acabado elegante.
+</p>
+
+
+
+<div class="controls">
+
+
+<button onclick="anterior()">
+◀
+</button>
+
+
+<button onclick="siguiente()">
+▶
+</button>
+
+
+
+</div>
+
+
+
+<button 
+class="whatsapp"
+onclick="comprar()">
+
+Comprar por WhatsApp
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+const productos=[
+
+
+{
+
+img:"chamarra1 (1).png",
+
+nombre:"Chamarra Adidas Premium",
+
+texto:"Diseño deportivo premium, tela resistente al viento y acabado moderno."
+
+},
+
+
+{
+
+img:"chamarra1 (2).png",
+
+nombre:"Chamarra Urbana Negra",
+
+texto:"Modelo urbano elegante para uso diario con gran comodidad."
+
+},
+
+
+{
+
+img:"chamarra1 (3).png",
+
+nombre:"Chamarra Deportiva Azul",
+
+texto:"Ligera, cómoda y perfecta para actividades deportivas."
+
+},
+
+
+{
+
+img:"chamarra1 (4).png",
+
+nombre:"Chamarra Moderna",
+
+texto:"Diseño actual con estilo premium."
+
+},
+
+
+{
+
+img:"chamarra1 (5).png",
+
+nombre:"Chamarra Casual",
+
+texto:"Ideal para combinar con diferentes estilos."
+
+},
+
+
+{
+
+img:"chamarra1 (6).png",
+
+nombre:"Chamarra Exclusiva",
+
+texto:"Modelo especial con acabado de alta calidad."
+
+}
+
+
+];
+
+
+
+let actual=0;
+
+
+
+const img=document.getElementById("producto");
+
+const nombre=document.getElementById("nombre");
+
+const descripcion=document.getElementById("descripcion");
+
+
+
+
+
+function cambiar(index){
+
+
+crearParticulas();
+
+
+img.classList.add("salida");
+
+
+
+setTimeout(()=>{
+
+
+actual=index;
+
+
+img.src=productos[actual].img;
+
+
+nombre.textContent=
+productos[actual].nombre;
+
+
+descripcion.textContent=
+productos[actual].texto;
+
+
+
+img.classList.remove("salida");
+
+
+img.classList.add("entrada");
+
+
+},700);
+
+
+
+}
+
+
+
+
+
+
+function siguiente(){
+
+
+let n=actual+1;
+
+
+if(n>=productos.length)n=0;
+
+
+cambiar(n);
+
+
+}
+
+
+
+
+
+function anterior(){
+
+
+let n=actual-1;
+
+
+if(n<0)n=productos.length-1;
+
+
+cambiar(n);
+
+
+}
+
+
+
+
+
+function crearParticulas(){
+
+
+for(let i=0;i<35;i++){
+
+
+let p=document.createElement("div");
+
+
+p.className="particula";
+
+
+p.style.left="50%";
+
+p.style.top="50%";
+
+
+p.style.setProperty(
+"--x",
+(Math.random()*600-300)+"px"
+);
+
+
+p.style.setProperty(
+"--y",
+(Math.random()*600-300)+"px"
+);
+
+
+
+document.body.appendChild(p);
+
+
+
+setTimeout(()=>{
+
+p.remove();
+
+},1000);
+
+
+
+}
+
+
+
+}
+
+
+
+
+
+function comprar(){
+
+
+let mensaje=
+"Hola, me interesa la "+
+productos[actual].nombre+
+", ¿me puede dar información?";
+
+
+
+window.open(
+
+"https://wa.me/?text="+
+encodeURIComponent(mensaje)
+
+);
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
