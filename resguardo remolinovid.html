@@ -204,7 +204,6 @@ ESCENA PRINCIPAL
     height:100vh;
     overflow:hidden;
 }
-
 /*=========================
 VIDEO DEL PORTAL
 =========================*/
@@ -546,6 +545,23 @@ TELÉFONOS PEQUEÑOS
 
 }
 
+.video-fondo{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:1;
+}
+
+#portal{
+    z-index:5;
+}
+
+.cards-container{
+    z-index:10;
+}
+
 
 </style>
 
@@ -555,22 +571,31 @@ TELÉFONOS PEQUEÑOS
 ESCENA PRINCIPAL
 ========================= -->
 
-<div class="scene">
+
 
     <!-- =========================
     VIDEO DEL REMOLINO
     ========================= -->
 
-<video id="portal" muted playsinline preload="auto" loop autoplay>
-    <source src="fondocorazong.mp4" type="video/mp4">
-</video>
+<!-- =========================
+ESCENA PRINCIPAL
+========================= -->
 
-<div class="portal-glow"></div>
-    <!-- =========================
-    CONTENEDOR DE TARJETAS
-    (JS LAS CREA AQUÍ)
-    ========================= -->
+<div class="scene">
 
+    <!-- Video de fondo -->
+    <video class="video-fondo" autoplay muted loop playsinline>
+        <source src="fondocorazong.mp4" type="video/mp4">
+    </video>
+
+    <!-- Video del portal -->
+    <video id="portal" muted playsinline preload="auto" loop autoplay>
+        <source src="fondocorazong.mp4" type="video/mp4">
+    </video>
+
+    <div class="portal-glow"></div>
+
+    <!-- Contenedor de tarjetas -->
     <div id="cards" class="cards-container"></div>
 
 </div>
