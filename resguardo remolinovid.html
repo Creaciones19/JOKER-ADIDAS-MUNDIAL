@@ -561,7 +561,35 @@ TELÉFONOS PEQUEÑOS
 .cards-container{
     z-index:10;
 }
+/* ===================================================
+   SOLO CELULARES Y TABLETS EN VERTICAL
+   Oculta el video frontal
+=================================================== */
 
+@media screen and (max-width:1024px) and (orientation:portrait){
+
+    #portal{
+        display:none !important;
+    }
+
+    .video-fondo{
+        display:block !important;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+}
+
+/* En horizontal vuelve a mostrarse */
+
+@media screen and (max-width:1024px) and (orientation:landscape){
+
+    #portal{
+        display:block !important;
+    }
+
+}
 
 </style>
 
