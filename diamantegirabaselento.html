@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Objeto 3D con 6 tarjetas triangulares</title>
+
+<style>
+
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #ffffff 0%,
+            #f5f5f5 55%,
+            #dfe8eb 100%
+        );
+
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/* =========================================================
+   ESCENA 3D
+========================================================= */
+
+.escena-3d{
+    position:relative;
+
+    width:700px;
+    height:700px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    perspective:1400px;
+    perspective-origin:center;
+}
+
+
+/* =========================================================
+   OBJETO COMPLETO
+========================================================= */
+
+.objeto-3d{
+    position:relative;
+
+    width:360px;
+    height:360px;
+
+    transform-style:preserve-3d;
+
+    transform:
+        rotateX(-10deg)
+        rotateY(-25deg);
+
+    animation:
+        giroAutomatico 18s linear infinite;
+
+    cursor:grab;
+}
+
+.objeto-3d:active{
+    cursor:grabbing;
+}
+
+
+/* GIRO AUTOMÁTICO */
+
+@keyframes giroAutomatico{
+
+    from{
+        transform:
+            rotateX(-10deg)
+            rotateY(0deg);
+    }
+
+    to{
+        transform:
+            rotateX(-10deg)
+            rotateY(360deg);
+    }
+
+}
+
+
+/* PAUSAR AL PASAR EL MOUSE */
+
+.escena-3d:hover .objeto-3d{
+    animation-play-state:paused;
+}
+
+
+/* =========================================================
+   CADA TARJETA TRIANGULAR
+========================================================= */
+
+.tarjeta-triangular{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:320px;
+    height:295px;
+
+    margin-left:-160px;
+    margin-top:-147px;
+
+    transform-style:preserve-3d;
+
+    cursor:pointer;
+
+    transition:
+        filter .3s ease,
+        opacity .3s ease;
+
+    filter:
+        drop-shadow(0 12px 12px rgba(0,0,0,.25));
+
+    backface-visibility:visible;
+}
+
+.tarjeta-triangular:hover{
+    filter:
+        drop-shadow(0 18px 18px rgba(0,0,0,.38))
+        brightness(1.08);
+}
+
+.tarjeta-triangular svg{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    overflow:visible;
+}
+
+
+/* =========================================================
+   POSICIÓN DE LAS 6 CARAS
+
+   3 ARRIBA
+   3 ABAJO
+
+   JUNTAS FORMAN UN SOLO OBJETO
+========================================================= */
+
+
+/* CARA FRONTAL SUPERIOR */
+
+.cara-1{
+    transform:
+        rotateY(0deg)
+        rotateX(28deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* CARA SUPERIOR DERECHA */
+
+.cara-2{
+    transform:
+        rotateY(120deg)
+        rotateX(28deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* CARA SUPERIOR IZQUIERDA */
+
+.cara-3{
+    transform:
+        rotateY(240deg)
+        rotateX(28deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* CARA INFERIOR FRONTAL */
+
+.cara-4{
+    transform:
+        rotateY(60deg)
+        rotateX(-28deg)
+        rotateZ(180deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* CARA INFERIOR DERECHA */
+
+.cara-5{
+    transform:
+        rotateY(180deg)
+        rotateX(-28deg)
+        rotateZ(180deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* CARA INFERIOR IZQUIERDA */
+
+.cara-6{
+    transform:
+        rotateY(300deg)
+        rotateX(-28deg)
+        rotateZ(180deg)
+        translateZ(145px)
+        translateY(-58px);
+}
+
+
+/* =========================================================
+   VIDEO DENTRO DEL TRIÁNGULO
+========================================================= */
+
+.video-tarjeta{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   CENTRO LUMINOSO PARA UNIR VISUALMENTE LAS TARJETAS
+========================================================= */
+
+.centro-luz{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:230px;
+    height:230px;
+
+    transform:
+        translate(-50%, -50%)
+        translateZ(0);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.95) 0%,
+            rgba(124,255,224,.42) 35%,
+            rgba(186,115,255,.18) 58%,
+            transparent 75%
+        );
+
+    filter:blur(15px);
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   TEXTO DE AYUDA
+========================================================= */
+
+.indicacion{
+    position:absolute;
+
+    left:50%;
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    padding:10px 18px;
+
+    color:#222222;
+
+    background:rgba(255,255,255,.85);
+
+    border:1px solid rgba(0,0,0,.08);
+    border-radius:30px;
+
+    font-size:14px;
+    font-weight:700;
+
+    white-space:nowrap;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.12);
+
+    backdrop-filter:blur(8px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:800px){
+
+    .escena-3d{
+        width:100vw;
+        height:100vh;
+
+        transform:scale(.82);
+    }
+
+}
+
+
+@media(max-width:560px){
+
+    .escena-3d{
+        transform:scale(.62);
+    }
+
+    .indicacion{
+        bottom:-30px;
+        font-size:13px;
+    }
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+
+    z-index:999999;
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    padding:20px;
+
+    background:rgba(0,0,0,.88);
+
+    backdrop-filter:blur(8px);
+}
+
+.modal.activo{
+    display:flex;
+}
+
+
+/* CAJA PRINCIPAL */
+
+.modal-caja{
+    position:relative;
+
+    width:min(1050px, 96vw);
+    max-height:92vh;
+
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+
+    overflow:auto;
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.58);
+}
+
+
+/* BOTÓN CERRAR */
+
+.cerrar-modal{
+    position:absolute;
+
+    top:12px;
+    right:12px;
+
+    z-index:50;
+
+    width:44px;
+    height:44px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border:0;
+    border-radius:50%;
+
+    color:#ffffff;
+    background:#111111;
+
+    font-size:28px;
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   GALERÍA DEL MODAL
+========================================================= */
+
+.modal-galeria{
+    padding:25px;
+
+    background:#101010;
+}
+
+.visual-principal{
+    width:100%;
+    height:500px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#050505;
+
+    border-radius:16px;
+}
+
+
+/* MOSTRAR IMAGEN O VIDEO COMPLETO */
+
+.visual-principal img,
+.visual-principal video{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:contain;
+}
+
+
+/* MINIATURAS */
+
+.miniaturas{
+    display:flex;
+    gap:12px;
+
+    margin-top:16px;
+
+    overflow-x:auto;
+}
+
+.miniatura{
+    position:relative;
+
+    flex:0 0 88px;
+
+    width:88px;
+    height:72px;
+
+    overflow:hidden;
+
+    border:3px solid transparent;
+    border-radius:10px;
+
+    background:#222222;
+
+    cursor:pointer;
+}
+
+.miniatura.activa{
+    border-color:#62ffc8;
+}
+
+.miniatura img,
+.miniatura video{
+    width:100%;
+    height:100%;
+
+    display:block;
+
+    object-fit:cover;
+
+    pointer-events:none;
+}
+
+.icono-video{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%, -50%);
+
+    color:#ffffff;
+
+    font-size:25px;
+
+    text-shadow:
+        0 2px 8px #000000;
+}
+
+
+/* =========================================================
+   INFORMACIÓN DEL MODAL
+========================================================= */
+
+.modal-informacion{
+    padding:70px 38px 38px;
+
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-informacion h2{
+    margin-bottom:18px;
+
+    color:#151515;
+
+    font-size:30px;
+}
+
+.modal-informacion p{
+    margin-bottom:18px;
+
+    color:#4b4b4b;
+
+    font-size:17px;
+    line-height:1.65;
+}
+
+.precio-modal{
+    margin:8px 0 25px;
+
+    color:#111111;
+
+    font-size:28px;
+    font-weight:800;
+}
+
+
+/* =========================================================
+   BOTÓN WHATSAPP
+========================================================= */
+
+.boton-whatsapp{
+    width:100%;
+
+    margin-top:auto;
+    padding:16px 20px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#ffffff;
+    background:#25d366;
+
+    border-radius:12px;
+
+    font-size:18px;
+    font-weight:800;
+
+    text-align:center;
+    text-decoration:none;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.boton-whatsapp:hover{
+    background:#1ebe5d;
+
+    transform:translateY(-3px);
+}
+
+
+/* =========================================================
+   MODAL RESPONSIVE
+========================================================= */
+
+@media(max-width:850px){
+
+    .modal-caja{
+        grid-template-columns:1fr;
+    }
+
+    .visual-principal{
+        height:390px;
+    }
+
+    .modal-informacion{
+        padding:32px 26px;
+    }
+
+}
+
+
+@media(max-width:520px){
+
+    .modal{
+        padding:8px;
+    }
+
+    .modal-caja{
+        width:100%;
+        max-height:97vh;
+
+        border-radius:15px;
+    }
+
+    .modal-galeria{
+        padding:14px;
+    }
+
+    .visual-principal{
+        height:310px;
+    }
+
+    .modal-informacion h2{
+        font-size:24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     ESCENA CON EL OBJETO 3D
+========================================================= -->
+
+<div
+    class="escena-3d"
+    id="escena3D"
+>
+
+    <div
+        class="objeto-3d"
+        id="objeto3D"
+    >
+
+
+        <div class="centro-luz"></div>
+
+
+        <!-- =================================================
+             TARJETA 1 — IMAGEN
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-1"
+            data-producto="0"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta1">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde1"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <image
+                    href="chamarra1 (1).png"
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    preserveAspectRatio="xMidYMid slice"
+                    clip-path="url(#formaTarjeta1)"
+                />
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde1)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETA 2 — VIDEO
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-2"
+            data-producto="1"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta2">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde2"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <foreignObject
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    clip-path="url(#formaTarjeta2)"
+                >
+
+                    <video
+                        xmlns="http://www.w3.org/1999/xhtml"
+                        class="video-tarjeta"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                    >
+
+                        <source
+                            src="video2.mp4"
+                            type="video/mp4"
+                        >
+
+                    </video>
+
+                </foreignObject>
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde2)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETA 3 — IMAGEN
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-3"
+            data-producto="2"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta3">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde3"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <image
+                    href="chamarra1 (2).png"
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    preserveAspectRatio="xMidYMid slice"
+                    clip-path="url(#formaTarjeta3)"
+                />
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde3)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETA 4 — IMAGEN
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-4"
+            data-producto="3"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta4">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde4"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <image
+                    href="chamarra1 (3).png"
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    preserveAspectRatio="xMidYMid slice"
+                    clip-path="url(#formaTarjeta4)"
+                />
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde4)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETA 5 — VIDEO
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-5"
+            data-producto="4"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta5">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde5"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <foreignObject
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    clip-path="url(#formaTarjeta5)"
+                >
+
+                    <video
+                        xmlns="http://www.w3.org/1999/xhtml"
+                        class="video-tarjeta"
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                    >
+
+                        <source
+                            src="video1.mp4"
+                            type="video/mp4"
+                        >
+
+                    </video>
+
+                </foreignObject>
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde5)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+        <!-- =================================================
+             TARJETA 6 — IMAGEN
+        ================================================= -->
+
+        <div
+            class="tarjeta-triangular cara-6"
+            data-producto="5"
+        >
+
+            <svg
+                viewBox="0 0 500 460"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+                <defs>
+
+                    <clipPath id="formaTarjeta6">
+
+                        <path d="
+                            M250 20
+                            C275 20 292 35 307 58
+                            L468 326
+                            C486 356 478 392 452 414
+                            C436 427 417 432 397 429
+                            L101 429
+                            C70 429 44 412 31 386
+                            C20 364 22 339 35 318
+                            L195 58
+                            C208 35 226 20 250 20
+                            Z
+                        "/>
+
+                    </clipPath>
+
+
+                    <linearGradient
+                        id="borde6"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="100%"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="25%"
+                            stop-color="#6effd8"
+                        />
+
+                        <stop
+                            offset="55%"
+                            stop-color="#ffffff"
+                        />
+
+                        <stop
+                            offset="80%"
+                            stop-color="#9c79ff"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#62ffc8"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <image
+                    href="chamarra1 (8).png"
+                    x="20"
+                    y="15"
+                    width="460"
+                    height="420"
+                    preserveAspectRatio="xMidYMid slice"
+                    clip-path="url(#formaTarjeta6)"
+                />
+
+
+                <path
+                    d="
+                        M250 20
+                        C275 20 292 35 307 58
+                        L468 326
+                        C486 356 478 392 452 414
+                        C436 427 417 432 397 429
+                        L101 429
+                        C70 429 44 412 31 386
+                        C20 364 22 339 35 318
+                        L195 58
+                        C208 35 226 20 250 20
+                        Z
+                    "
+
+                    fill="none"
+                    stroke="url(#borde6)"
+                    stroke-width="12"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="indicacion">
+        Arrastra para girar · Pulsa una tarjeta para verla
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="modal"
+>
+
+    <div class="modal-caja">
+
+
+        <button
+            class="cerrar-modal"
+            id="cerrarModal"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <div class="modal-galeria">
+
+
+            <div
+                class="visual-principal"
+                id="visualPrincipal"
+            ></div>
+
+
+            <div
+                class="miniaturas"
+                id="miniaturas"
+            ></div>
+
+
+        </div>
+
+
+        <div class="modal-informacion">
+
+
+            <h2 id="tituloModal"></h2>
+
+
+            <p id="descripcionModal"></p>
+
+
+            <div
+                class="precio-modal"
+                id="precioModal"
+            ></div>
+
+
+            <a
+                class="boton-whatsapp"
+                id="botonWhatsApp"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Pedir información por WhatsApp
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATOS DE LAS SEIS TARJETAS
+========================================================= */
+
+const productos = [
+
+    {
+        nombre:"Producto 1",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 1.",
+
+        galeria:[
+
+            {
+                tipo:"imagen",
+                archivo:"imagen1.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen1-2.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen1-3.jpg"
+            },
+
+            {
+                tipo:"video",
+                archivo:"video1.mp4"
+            }
+
+        ]
+    },
+
+
+    {
+        nombre:"Producto 2",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 2.",
+
+        galeria:[
+
+            {
+                tipo:"video",
+                archivo:"video2.mp4"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen2.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen2-2.jpg"
+            }
+
+        ]
+    },
+
+
+    {
+        nombre:"Producto 3",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 3.",
+
+        galeria:[
+
+            {
+                tipo:"imagen",
+                archivo:"imagen3.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen3-2.jpg"
+            },
+
+            {
+                tipo:"video",
+                archivo:"video3.mp4"
+            }
+
+        ]
+    },
+
+
+    {
+        nombre:"Producto 4",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 4.",
+
+        galeria:[
+
+            {
+                tipo:"imagen",
+                archivo:"imagen4.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen4-2.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen4-3.jpg"
+            }
+
+        ]
+    },
+
+
+    {
+        nombre:"Producto 5",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 5.",
+
+        galeria:[
+
+            {
+                tipo:"video",
+                archivo:"video5.mp4"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen5.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen5-2.jpg"
+            }
+
+        ]
+    },
+
+
+    {
+        nombre:"Producto 6",
+
+        precio:"$1,480.00 MXN",
+
+        descripcion:
+            "Escribe aquí la descripción completa del producto número 6.",
+
+        galeria:[
+
+            {
+                tipo:"imagen",
+                archivo:"imagen6.jpg"
+            },
+
+            {
+                tipo:"imagen",
+                archivo:"imagen6-2.jpg"
+            },
+
+            {
+                tipo:"video",
+                archivo:"video6.mp4"
+            }
+
+        ]
+    }
+
+];
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const objeto3D =
+    document.getElementById("objeto3D");
+
+const escena3D =
+    document.getElementById("escena3D");
+
+const modal =
+    document.getElementById("modal");
+
+const cerrarModal =
+    document.getElementById("cerrarModal");
+
+const visualPrincipal =
+    document.getElementById("visualPrincipal");
+
+const miniaturas =
+    document.getElementById("miniaturas");
+
+const tituloModal =
+    document.getElementById("tituloModal");
+
+const descripcionModal =
+    document.getElementById("descripcionModal");
+
+const precioModal =
+    document.getElementById("precioModal");
+
+const botonWhatsApp =
+    document.getElementById("botonWhatsApp");
+
+
+/* =========================================================
+   MOVIMIENTO MANUAL CON MOUSE O DEDO
+========================================================= */
+
+let arrastrando =
+    false;
+
+let inicioX =
+    0;
+
+let inicioY =
+    0;
+
+let rotacionX =
+    -10;
+
+let rotacionY =
+    -25;
+
+let seMovio =
+    false;
+
+
+function iniciarArrastre(evento){
+
+    if(modal.classList.contains("activo")){
+        return;
+    }
+
+    arrastrando =
+        true;
+
+    seMovio =
+        false;
+
+    objeto3D.style.animation =
+        "none";
+
+    const punto =
+        evento.touches
+            ? evento.touches[0]
+            : evento;
+
+    inicioX =
+        punto.clientX;
+
+    inicioY =
+        punto.clientY;
+
+}
+
+
+function moverObjeto(evento){
+
+    if(!arrastrando){
+        return;
+    }
+
+    const punto =
+        evento.touches
+            ? evento.touches[0]
+            : evento;
+
+    const diferenciaX =
+        punto.clientX - inicioX;
+
+    const diferenciaY =
+        punto.clientY - inicioY;
+
+
+    if(
+        Math.abs(diferenciaX) > 4 ||
+        Math.abs(diferenciaY) > 4
+    ){
+        seMovio = true;
+    }
+
+
+    rotacionY +=
+        diferenciaX * .45;
+
+    rotacionX -=
+        diferenciaY * .30;
+
+
+    rotacionX =
+        Math.max(
+            -55,
+            Math.min(55, rotacionX)
+        );
+
+
+    objeto3D.style.transform =
+        `rotateX(${rotacionX}deg)
+         rotateY(${rotacionY}deg)`;
+
+
+    inicioX =
+        punto.clientX;
+
+    inicioY =
+        punto.clientY;
+
+}
+
+
+function terminarArrastre(){
+
+    arrastrando =
+        false;
+
+}
+
+
+escena3D.addEventListener(
+    "mousedown",
+    iniciarArrastre
+);
+
+window.addEventListener(
+    "mousemove",
+    moverObjeto
+);
+
+window.addEventListener(
+    "mouseup",
+    terminarArrastre
+);
+
+
+escena3D.addEventListener(
+    "touchstart",
+    iniciarArrastre,
+    {
+        passive:true
+    }
+);
+
+window.addEventListener(
+    "touchmove",
+    moverObjeto,
+    {
+        passive:true
+    }
+);
+
+window.addEventListener(
+    "touchend",
+    terminarArrastre
+);
+
+
+/* =========================================================
+   CREAR IMAGEN O VIDEO DEL MODAL
+========================================================= */
+
+function crearMedio(
+    elemento,
+    esMiniatura = false
+){
+
+    if(elemento.tipo === "video"){
+
+        const video =
+            document.createElement("video");
+
+
+        video.src =
+            elemento.archivo;
+
+        video.playsInline =
+            true;
+
+        video.preload =
+            "metadata";
+
+
+        if(esMiniatura){
+
+            video.muted =
+                true;
+
+        }else{
+
+            video.controls =
+                true;
+
+        }
+
+
+        return video;
+
+    }
+
+
+    const imagen =
+        document.createElement("img");
+
+
+    imagen.src =
+        elemento.archivo;
+
+    imagen.alt =
+        "Imagen del producto";
+
+
+    return imagen;
+
+}
+
+
+/* =========================================================
+   MOSTRAR ELEMENTO PRINCIPAL
+========================================================= */
+
+function mostrarPrincipal(elemento){
+
+    visualPrincipal.innerHTML =
+        "";
+
+    const medio =
+        crearMedio(
+            elemento,
+            false
+        );
+
+    visualPrincipal.appendChild(
+        medio
+    );
+
+}
+
+
+/* =========================================================
+   ABRIR MODAL
+========================================================= */
+
+function abrirModal(indice){
+
+    const producto =
+        productos[indice];
+
+
+    tituloModal.textContent =
+        producto.nombre;
+
+
+    descripcionModal.textContent =
+        producto.descripcion;
+
+
+    precioModal.textContent =
+        producto.precio;
+
+
+    const mensaje =
+        encodeURIComponent(
+
+            `Hola. Me interesa recibir más información sobre ${producto.nombre}. ¿Podría compartir los detalles, disponibilidad y proceso de compra, por favor?`
+
+        );
+
+
+    botonWhatsApp.href =
+        `https://wa.me/523344340062?text=${mensaje}`;
+
+
+    miniaturas.innerHTML =
+        "";
+
+
+    mostrarPrincipal(
+        producto.galeria[0]
+    );
+
+
+    producto.galeria.forEach(
+
+        (elemento, posicion) => {
+
+
+            const boton =
+                document.createElement("button");
+
+
+            boton.type =
+                "button";
+
+
+            boton.className =
+                "miniatura";
+
+
+            if(posicion === 0){
+
+                boton.classList.add(
+                    "activa"
+                );
+
+            }
+
+
+            const medio =
+                crearMedio(
+                    elemento,
+                    true
+                );
+
+
+            boton.appendChild(medio);
+
+
+            if(elemento.tipo === "video"){
+
+                const icono =
+                    document.createElement("span");
+
+
+                icono.className =
+                    "icono-video";
+
+
+                icono.textContent =
+                    "▶";
+
+
+                boton.appendChild(icono);
+
+            }
+
+
+            boton.addEventListener(
+
+                "click",
+
+                () => {
+
+
+                    document
+                        .querySelectorAll(".miniatura")
+                        .forEach(item => {
+
+                            item.classList.remove(
+                                "activa"
+                            );
+
+                        });
+
+
+                    boton.classList.add(
+                        "activa"
+                    );
+
+
+                    mostrarPrincipal(
+                        elemento
+                    );
+
+                }
+
+            );
+
+
+            miniaturas.appendChild(
+                boton
+            );
+
+        }
+
+    );
+
+
+    modal.classList.add(
+        "activo"
+    );
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    objeto3D.style.animationPlayState =
+        "paused";
+
+}
+
+
+/* =========================================================
+   ABRIR LA TARJETA CORRESPONDIENTE
+========================================================= */
+
+document
+    .querySelectorAll(".tarjeta-triangular")
+    .forEach(tarjeta => {
+
+
+        tarjeta.addEventListener(
+
+            "click",
+
+            evento => {
+
+
+                evento.stopPropagation();
+
+
+                if(seMovio){
+
+                    seMovio =
+                        false;
+
+                    return;
+
+                }
+
+
+                const indice =
+                    Number(
+                        tarjeta.dataset.producto
+                    );
+
+
+                abrirModal(
+                    indice
+                );
+
+            }
+
+        );
+
+    });
+
+
+/* =========================================================
+   CERRAR MODAL
+========================================================= */
+
+function cerrarVentana(){
+
+    modal.classList.remove(
+        "activo"
+    );
+
+
+    visualPrincipal.innerHTML =
+        "";
+
+
+    document.body.style.overflow =
+        "";
+
+
+    objeto3D.style.animationPlayState =
+        "running";
+
+}
+
+
+cerrarModal.addEventListener(
+
+    "click",
+
+    cerrarVentana
+
+);
+
+
+modal.addEventListener(
+
+    "click",
+
+    evento => {
+
+
+        if(evento.target === modal){
+
+            cerrarVentana();
+
+        }
+
+    }
+
+);
+
+
+document.addEventListener(
+
+    "keydown",
+
+    evento => {
+
+
+        if(evento.key === "Escape"){
+
+            cerrarVentana();
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+</html>
